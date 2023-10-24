@@ -88,13 +88,13 @@ public class GearGrinderWheelTest extends LinearOpMode {
             if (gamepad1.right_stick_x < 0) {
                 arms.get(0).setDirection(DcMotor.Direction.FORWARD);
                 arms.get(1).setDirection(DcMotor.Direction.REVERSE);
-                arms.get(0).setPower(2);arms.get(1).setPower(2);
+                arms.get(0).setPower(1);arms.get(1).setPower(1);
             }
             // If Right-Stick is Pushed Right
             if (gamepad1.right_stick_x > 0) {
                 arms.get(0).setDirection(DcMotor.Direction.REVERSE);
                 arms.get(1).setDirection(DcMotor.Direction.FORWARD);
-                arms.get(0).setPower(2); arms.get(1).setPower(2);
+                arms.get(0).setPower(1); arms.get(1).setPower(1);
             }
             // If Right-Stick X is Neutral
             if (gamepad1.right_stick_x == 0) {
