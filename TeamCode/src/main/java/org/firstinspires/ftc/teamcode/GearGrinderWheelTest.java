@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class GearGrinderWheelTest extends LinearOpMode {
     // Defining All the Motors for Wheels!!
     private DcMotor frontLeft, frontRight;
     private DcMotor backLeft, backRight;
+    private DcMotor arm_one, arm_two;
 
     // Defining All the Motors for the Arm!!
     private DcMotor armBaseRotate;
@@ -25,6 +27,7 @@ public class GearGrinderWheelTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         ArrayList<DcMotor> motors = new ArrayList<>();
+        ArrayList<DcMotor> arms = new ArrayList<>();
         // Wheel Motor Initialization!
         frontLeft = hardwareMap.get(DcMotor.class, "motor0");
         motors.add(frontLeft);
@@ -35,7 +38,9 @@ public class GearGrinderWheelTest extends LinearOpMode {
         backRight = hardwareMap.get(DcMotor.class, "motor3");
         motors.add(backRight);
         // Arm Motors Initialization!
-        armBaseRotate = hardwareMap.get(DcMotor.class, "motorE-0");
+        arm_one = hardwareMap.get(DcMotor.class, "motorE-0");
+        arm_two = hardwareMap.get(DcMotor.class, "motorE-1");
+        arms.add(arm_one); arms.add(arm_two);
         // Variable Setting
         power = 5;
         // TODO - Make it so that there is a way that when a button is held, it goes at half power
@@ -81,17 +86,20 @@ public class GearGrinderWheelTest extends LinearOpMode {
             }
             // If Right-Stick is Pushed Left
             if (gamepad1.right_stick_x < 0) {
-                armBaseRotate.setDirection(DcMotor.Direction.FORWARD);
-                armBaseRotate.setPower(2);
+                arms.get(0).setDirection(DcMotor.Direction.FORWARD);
+                arms.get(1).setDirection(DcMotor.Direction.REVERSE);
+                arms.get(0).setPower(2);arms.get(1).setPower(2);
             }
             // If Right-Stick is Pushed Right
             if (gamepad1.right_stick_x > 0) {
-                armBaseRotate.setDirection(DcMotor.Direction.REVERSE);
-                armBaseRotate.setPower(2);
+                arms.get(0).setDirection(DcMotor.Direction.REVERSE);
+                arms.get(1).setDirection(DcMotor.Direction.FORWARD);
+                arms.get(0).setPower(2); arms.get(1).setPower(2);
             }
             // If Right-Stick X is Neutral
             if (gamepad1.right_stick_x == 0) {
-                armBaseRotate.setPower(0);
+                arms.get(0).setPower(0);
+                arms.get(1).setPower(0);
             }
             // Check if Wheels Should Run
             if (wheelsRunning) {
